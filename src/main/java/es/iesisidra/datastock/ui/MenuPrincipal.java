@@ -6,15 +6,19 @@ import es.iesisidra.datastock.util.LectorConsola;
 
 /**
  * Presentación de menús y navegación de la primera fase de DataStock.
- * <p>Los métodos marcados TODO son puntos de partida, NO soluciones de los
+ * <p>
+ * Los métodos marcados TODO son puntos de partida, NO soluciones de los
  * requisitos. El alumnado deberá delegar el acceso a ficheros, la validación
- * y el procesamiento en métodos o clases independientes.</p>
+ * y el procesamiento en métodos o clases independientes.
+ * </p>
  */
 public class MenuPrincipal {
     private final Inventario inventario;
 
     /** @param inventario colección común de productos de esta ejecución. */
-    public MenuPrincipal(Inventario inventario) { this.inventario = inventario; }
+    public MenuPrincipal(Inventario inventario) {
+        this.inventario = inventario;
+    }
 
     /** Ejecuta el menú principal hasta que el usuario selecciona salir. */
     public void iniciar() {
@@ -30,24 +34,38 @@ public class MenuPrincipal {
             System.out.println("0. Salir");
             opcion = LectorConsola.leerOpcion("Selecciona una opción: ", 0, 6);
             switch (opcion) {
-                case 1 -> pendiente("RF-FIC-01 · Explorar ficheros y directorios");
-                case 2 -> pendiente("RF-FIC-02 · Importar productos desde JSON");
-                case 3 -> pendiente("RF-FIC-03 · Importar productos desde XML");
-                case 4 -> menuConsultas();
-                case 5 -> menuExportaciones();
-                case 6 -> menuSerializacion();
-                case 0 -> System.out.println(ColoresConsola.pintar("Hasta pronto.", ColoresConsola.VERDE));
-                default -> throw new IllegalStateException("Opción inesperada");
+                case 1:
+                    System.out.println("Introduce la ruta a explorar: ");
+                    String ruta = LectorConsola.leerTexto("Introduce la ruta");
+                    ExploradorFicheros.explorarRuta(ruta);
+                    break;
+                case 2:
+                    pendiente("RF-FIC-02 · Importar productos desde JSON");
+                case 3:
+                    pendiente("RF-FIC-03 · Importar productos desde XML");
+                case 4:
+                    menuConsultas();
+                case 5:
+                    menuExportaciones();
+                case 6:
+                    menuSerializacion();
+                case 0:
+                    System.out.println(ColoresConsola.pintar("Hasta pronto.", ColoresConsola.VERDE));
+                default:
+                    throw new IllegalStateException("Opción inesperada");
             }
         } while (opcion != 0);
     }
 
     private void mostrarCabecera() {
-        System.out.println(ColoresConsola.pintar("\n================================================", ColoresConsola.CIAN));
+        System.out.println(
+                ColoresConsola.pintar("\n================================================", ColoresConsola.CIAN));
         System.out.println(ColoresConsola.pintar("         DATASTOCK - GESTIÓN DE INVENTARIO", ColoresConsola.NEGRITA));
         System.out.println(ColoresConsola.pintar("                 FASE 1 - UT1", ColoresConsola.CIAN));
-        System.out.println(ColoresConsola.pintar("================================================", ColoresConsola.CIAN));
-        System.out.println(ColoresConsola.pintar("Productos en memoria: " + inventario.getProductos().size(), ColoresConsola.GRIS));
+        System.out.println(
+                ColoresConsola.pintar("================================================", ColoresConsola.CIAN));
+        System.out.println(ColoresConsola.pintar("Productos en memoria: " + inventario.getProductos().size(),
+                ColoresConsola.GRIS));
     }
 
     private void menuConsultas() {
@@ -63,7 +81,8 @@ public class MenuPrincipal {
                 case 1 -> pendiente("RF-FIC-04 · Listar productos");
                 case 2 -> pendiente("RF-FIC-04 · Buscar por código");
                 case 3 -> pendiente("RF-FIC-04 · Buscar por nombre");
-                case 0 -> { }
+                case 0 -> {
+                }
                 default -> throw new IllegalStateException("Opción inesperada");
             }
         } while (opcion != 0);
@@ -80,7 +99,8 @@ public class MenuPrincipal {
             switch (opcion) {
                 case 1 -> pendiente("RF-FIC-05 · Exportar JSON");
                 case 2 -> pendiente("RF-FIC-05 · Exportar XML");
-                case 0 -> { }
+                case 0 -> {
+                }
                 default -> throw new IllegalStateException("Opción inesperada");
             }
         } while (opcion != 0);
@@ -97,13 +117,17 @@ public class MenuPrincipal {
             switch (opcion) {
                 case 1 -> pendiente("RF-FIC-06 · Guardar inventario");
                 case 2 -> pendiente("RF-FIC-06 · Recuperar inventario");
-                case 0 -> { }
+                case 0 -> {
+                }
                 default -> throw new IllegalStateException("Opción inesperada");
             }
         } while (opcion != 0);
     }
 
-    /** Sustituir las llamadas por servicios propios a medida que se implementen los RF. */
+    /**
+     * Sustituir las llamadas por servicios propios a medida que se implementen los
+     * RF.
+     */
     private void pendiente(String requisito) {
         System.out.println(ColoresConsola.pintar("[PENDIENTE] " + requisito, ColoresConsola.AMARILLO));
         System.out.println("Esta funcionalidad debe desarrollarla el alumnado.");
